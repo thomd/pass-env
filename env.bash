@@ -7,7 +7,7 @@ _die() { printf '  Error: %s\n' "$*" >&2 && exit 1; }
 cmd_env_version() {
   cat >&1 <<-_EOF
 
-  $PROGRAM env $VERSION - a pass extension that exports a value as environment variable.
+  $PROGRAM env $VERSION - a pass extension that creates a string "export name=value" into clipboard
 _EOF
 }
 
@@ -27,7 +27,7 @@ cmd_env_usage() {
   EXAMPLES:
 
     pass insert -m pass-name          Store env-variable value in first line and env-variable name as second line
-    pass env pass-name                Export 'pass-name' as environment variable
+    pass env pass-name                Copy a string "export name=value" into clipboard
 _EOF
 }
 
@@ -37,7 +37,7 @@ cmd_env() {
     set -- $($GPG -d "${GPG_OPTS[@]}" "$passfile")
     local name=$2
     local value=$1
-    echo "export $name=\"${value}\""
+    clip "export $name=\"${value}\"" "$name"
   fi
 }
 
