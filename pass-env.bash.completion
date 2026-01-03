@@ -1,0 +1,7 @@
+PASSWORD_STORE_EXTENSION_COMMANDS+=(env)
+
+__password_store_extension_complete_env() {
+    local args=(-h --help -V --version)
+    COMPREPLY+=($(compgen -W "${args[*]}" -- ${cur}))
+    _pass_complete_entries
+}
