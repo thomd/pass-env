@@ -1,4 +1,4 @@
-# Paper Backup for pass
+# pass env
 
 An extension for [pass(1)](https://www.passwordstore.org/) - the standard Unix password manager - to copy a string `export NAME="VALUE"` into clipboard.
 
