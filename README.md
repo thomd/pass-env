@@ -3,7 +3,7 @@
 An extension for [pass(1)](https://www.passwordstore.org/) - the standard Unix password manager - to copy an export string `export NAME="VALUE"` into the clipboard. 
 
 > [!NOTE]
-> Because shell scripts run in a subshell, it is not possible to export environment variables from within a script like `pass`. Therefore, the recommended workaround is to have `pass` copy the export string to the clipboard, which you can then manually paste into your shell.
+> Because shell scripts run in a subshell, it is not possible to export environment variables from within a script like `pass`. Therefore, the workaround is to have `pass` copy the export string to the clipboard, which you can then manually paste into your shell.
 
 My primary use case is **managing authentication API keys** for various service providers.
 
