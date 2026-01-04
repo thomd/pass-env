@@ -45,7 +45,7 @@ cmd_env() {
       done
     } < <($GPG -d "${GPG_OPTS[@]}" "$passfile")
     if [ -z "$name" ]; then
-      die "Password entry '$1' is missing the variable name on the second line."
+      die "Password entry is missing the variable name on the second line."
     fi
     clip "export $name=\"${value}\"" "$name"
   fi
@@ -57,9 +57,20 @@ opts="$($GETOPT -o $small_arg -l $long_arg -n "$PROGRAM $COMMAND" -- "$@")"
 err=$?
 eval set -- "$opts"
 while true; do case $1 in
-  -h|--help) shift; cmd_env_usage; exit 0 ;;
-  -V|--version) shift; cmd_env_version; exit 0 ;;
-  --) shift; break ;;
+  -h|--help)
+    shift
+    cmd_env_usage
+    exit 0
+    ;;
+  -V|--version)
+    shift
+    cmd_env_version
+    exit 0
+    ;;
+  --)
+    shift
+    break
+    ;;
 esac done
 
 if [ $err -ne 0 ]; then
@@ -68,7 +79,6 @@ if [ $err -ne 0 ]; then
 fi
 
 if [ "$COMMAND" == "env" ]; then
-  # Check if a pass-name argument was provided
   if [ "$#" -eq 0 ]; then
     cmd_env_usage
     exit 1
