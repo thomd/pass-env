@@ -21,7 +21,7 @@ Store `VALUE` in the first line and `NAME` in the second line, e.g.
     AIz***NzU
     GEMINI_API_KEY
 
-Store everything else starting with the third line.
+Store everything else starting with the third line. Any non-empty lines from the third line on will be printed to standard output.
 
 Then run
 

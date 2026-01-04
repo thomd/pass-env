@@ -34,10 +34,15 @@ _EOF
 cmd_env() {
   local passfile="${PREFIX}/${1}.gpg"
   if [ -f "$passfile" ]; then
-    local value name
+    local value name line
     {
       read -r value
       read -r name
+      while IFS= read -r line; do
+        if [ -n "$line" ]; then
+          printf '%s\n' "$line"
+        fi
+      done
     } < <($GPG -d "${GPG_OPTS[@]}" "$passfile")
     if [ -z "$name" ]; then
       die "Password entry '$1' is missing the variable name on the second line."
