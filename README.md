@@ -1,8 +1,8 @@
 # pass env
 
-An extension for [pass(1)](https://www.passwordstore.org/) - the standard Unix password manager - to copy an export string `export NAME="VALUE"` into clipboard. Because shell scripts run in a subshell, it is not possible to export environment variables from within a script like `pass`. So the best workaround for  me is to copy-paste the export string into your shell.
+An extension for [pass(1)](https://www.passwordstore.org/) - the standard Unix password manager - to copy an export string `export NAME="VALUE"` into clipboard. Because shell scripts run in a subshell, it is not possible to export environment variables from within a script like `pass`. So the best workaround for  me is to copy the export string into clipboard and then paste it into the shell.
 
-Typical use case for me is to manage all my API keys of service providers for authentication.
+Typical use case for me is to manage all my authentication API keys of service providers.
 
 ## Install
 
@@ -16,18 +16,18 @@ This extension is only tested for **macOS**.
 
 ## Usage
 
-Store `VALUE` in the first line and `NAME` in the second line, e.g.
+Store `VALUE` in the **first line** and `NAME` in the **second line**, e.g.
 
     AIz***NzU
     GEMINI_API_KEY
 
-Store everything else starting with the third line. Any non-empty lines from the third line on will be printed to standard output.
+Store everything else starting with the **third line**. Any non-empty lines from the third line on will be printed to standard output.
 
 Then run
 
     pass env api/gemini
 
-This will copy a string, e.g. `export GEMINI_API_KEY="AIz***NzU"` into clipboard.
+This will **copy** a string, e.g. `export GEMINI_API_KEY="AIz***NzU"` into clipboard.
 
-Then just paste it into your shell.
+Then just **paste** it into your shell.
 
