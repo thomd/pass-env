@@ -20,7 +20,7 @@ install:
 uninstall:
 	@rm -vrf "$(EXTENSIONS_DIR)/env.bash"
 	@rm -vrf "$(BASH_COMPLETIONS_DIR)/pass-env.bash.completion"
-	@rm -vrf "$(DESTDIR)$(BASHCOMPDIR)/pass-env"
+	@rm -vrf "$(BASHCOMPDIR)/pass-env"
 
 lint:
 	shellcheck -s bash env.bash
