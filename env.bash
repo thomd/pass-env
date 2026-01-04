@@ -2,10 +2,10 @@
 
 readonly VERSION="1.0"
 
-_die() { printf '  Error: %s\n' "$*" >&2 && exit 1; }
+die() { printf '  Error: %s\n' "$*" >&2 && exit 1; }
 
 cmd_env_version() {
-  cat >&1 <<-_EOF
+  cat <<-_EOF
 
   $PROGRAM env $VERSION - a pass extension that creates a string "export name=value" into clipboard
 _EOF
@@ -13,7 +13,7 @@ _EOF
 
 cmd_env_usage() {
   cmd_env_version
-  cat >&1 <<-_EOF
+  cat <<-_EOF
 
   USAGE:
 
@@ -34,15 +34,20 @@ _EOF
 cmd_env() {
   local passfile="${PREFIX}/${1}.gpg"
   if [ -f "$passfile" ]; then
-    set -- $($GPG -d "${GPG_OPTS[@]}" "$passfile")
-    local name=$2
-    local value=$1
+    local value name
+    {
+      read -r value
+      read -r name
+    } < <($GPG -d "${GPG_OPTS[@]}" "$passfile")
+    if [ -z "$name" ]; then
+      die "Password entry '$1' is missing the variable name on the second line."
+    fi
     clip "export $name=\"${value}\"" "$name"
   fi
 }
 
-small_arg="h:V"
-long_arg="help:version"
+small_arg="hV"
+long_arg="help,version"
 opts="$($GETOPT -o $small_arg -l $long_arg -n "$PROGRAM $COMMAND" -- "$@")"
 err=$?
 eval set -- "$opts"
@@ -58,7 +63,13 @@ if [ $err -ne 0 ]; then
 fi
 
 if [ "$COMMAND" == "env" ]; then
-  cmd_env "$@"
+  # Check if a pass-name argument was provided
+  if [ "$#" -eq 0 ]; then
+    cmd_env_usage
+    exit 1
+  else
+    cmd_env "$@"
+  fi
 fi
 
 exit 0
